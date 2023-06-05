@@ -2,12 +2,7 @@ using UnityEngine;
 
 public class PlayerInteraction : MonoBehaviour
 {
-    InventoryBelt BeltInventory;
 
-    private void Awake()
-    {
-        BeltInventory = Camera.main.GetComponent<InventoryBelt>();
-    }
 
     private void Update()
     {
@@ -18,31 +13,39 @@ public class PlayerInteraction : MonoBehaviour
 
             var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
-            Debug.DrawRay(ray.origin, ray.direction,Color.blue,200f);
+            Debug.DrawRay(ray.origin, ray.direction, Color.blue, 200f);
 
             RaycastHit hit;
 
 
             if (Physics.Raycast(ray, out hit))
             {
-                if(hit.collider.gameObject.tag == "Test")
+                if (hit.collider.gameObject.tag == "Test")
                 {
                     Debug.Log("SuccessfulWorldInteraction");
                 }
+
+                if (hit.collider.gameObject.TryGetComponent<Item>(out Item item))
+                {
+                    Inventory.Instance.AddItem(item);
+                    item.gameObject.SetActive(false);
+                }
+
 
             }
         }
 
         if (Input.GetMouseButtonDown(0))
         {
-            if (BeltInventory.handheldItem != null && BeltInventory.handheldItem.tag != "Empty")
+            if (InventoryBelt.Instance.handheldItem != null && InventoryBelt.Instance.handheldItem.tag != "Empty")
             {
-                GameObject tool = BeltInventory.handheldItem;
+                GameObject tool = InventoryBelt.Instance.handheldItem;
                 tool.GetComponent<Tool>().Use();
             }
         }
-    }
 
+
+    }
 
 
 

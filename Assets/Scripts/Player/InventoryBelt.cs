@@ -3,12 +3,27 @@ using UnityEngine;
 
 public class InventoryBelt : MonoBehaviour
 {
+    public static InventoryBelt Instance { get; private set; }
+
     public List<Tool> items = new List<Tool>(); 
     public int currentItemIndex = 0; 
 
     public GameObject emptyHandModel; 
+    public GameObject handheldItem;
 
-    public GameObject handheldItem; 
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+    }
 
     private void Start()
     {

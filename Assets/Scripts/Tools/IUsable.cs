@@ -1,6 +1,4 @@
-﻿
-
-interface IUsable
+﻿interface IUsable
 {
     public void Use();
 
