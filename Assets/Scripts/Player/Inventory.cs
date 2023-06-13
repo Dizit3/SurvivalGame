@@ -1,11 +1,14 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Inventory : MonoBehaviour
 {
     public static Inventory Instance { get; private set; }
 
-    public List<Item> items = new List<Item>(); // Список предметов в инвентаре
+    public List<GameObject> items = new List<GameObject>(); // Список предметов в инвентаре
+
+    public event Action OnItemAdding;
 
     private void Awake()
     {
@@ -22,15 +25,16 @@ public class Inventory : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
-    public void AddItem(Item item)
+    public void AddItem(GameObject gameItem)
     {
-        items.Add(item);
-        Debug.Log("Added item: " + item.name);
+        items.Add(gameItem);
+        Debug.Log("Added item: " + gameItem.GetComponent<Item>().itemName);
+        OnItemAdding?.Invoke();
     }
 
-    public void RemoveItem(Item item)
+    public void RemoveItem(GameObject gameItem)
     {
-        items.Remove(item);
-        Debug.Log("Removed item: " + item.name);
+        items.Remove(gameItem);
+        Debug.Log("Removed item: " + gameItem.GetComponent<Item>().itemName);
     }
 }

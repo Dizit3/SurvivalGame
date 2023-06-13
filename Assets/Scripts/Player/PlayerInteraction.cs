@@ -21,6 +21,10 @@ public class PlayerInteraction : MonoBehaviour
 
     }
 
+
+
+
+
     private void HandInteraction()
     {
         if (InventoryBelt.Instance.handheldItem != null && InventoryBelt.Instance.handheldItem.tag != "Empty")
@@ -52,8 +56,7 @@ public class PlayerInteraction : MonoBehaviour
 
             if (hit.collider.gameObject.TryGetComponent<Item>(out Item item))
             {
-                Inventory.Instance.AddItem(item);
-                item.gameObject.SetActive(false);
+                Inventory.Instance.AddItem(item.Pick());
             }
 
 
