@@ -1,12 +1,21 @@
-﻿public class StoneDeposit : MinableResource
+﻿using UnityEngine;
+
+public class StoneDeposit : MinableResource
 {
     private int amount = 50;
 
     private int hardness = 1;
 
+    [SerializeField]private GameObject parts;
+
     public override void Destroy()
     {
-        Destroy(gameObject);
+        gameObject.SetActive(false);
+        if (parts != null)
+        {
+            parts.transform.position = gameObject.transform.position;
+            parts.SetActive(true);
+        }
         
     }
 
