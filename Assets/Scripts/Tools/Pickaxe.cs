@@ -26,10 +26,10 @@ using UnityEngine;
             if (Physics.Raycast(ray, out hit, 10f))
             {
                 Debug.DrawRay(ray.origin, ray.direction * hit.distance, Color.blue, 100f);
-                if (hit.collider.gameObject.tag == "Test")
+                if (hit.collider.gameObject.TryGetComponent<MinableResource>(out MinableResource minable) )
                 {
                     Debug.Log("UsePickAxeSuccessful");
-                    hit.collider.gameObject.GetComponent<StoneDeposit>().Mine(efficiency);
+                    minable.Mine(efficiency);
                 }
             }
         }

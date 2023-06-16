@@ -2,11 +2,12 @@
 {
     private int amount = 50;
 
-    private int hardness = 5;
+    private int hardness = 1;
 
     public override void Destroy()
     {
         Destroy(gameObject);
+        
     }
 
     public override void Mine(int efficiency)
